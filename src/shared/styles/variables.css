@@ -1,0 +1,21 @@
+/* Root-level CSS variables for spacing, colors, and sizes */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --card-radius: 12px;
+  --card-elevation: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  --color-error: #f44336;
+}
+
+:root[data-theme='dark'] {
+  /* override if dark mode is enabled */
+  --card-elevation: 0 6px 16px rgba(0, 0, 0, 0.24);
+  --color-error: #ff6b6b;
+}

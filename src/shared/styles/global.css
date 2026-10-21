@@ -1,0 +1,43 @@
+@import './variables.css';
+
+/* Shared layout utilities */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: var(--space-6);
+  width: 100%;
+}
+
+.card--auth {
+  width: 100%;
+  max-width: 700px;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-elevation);
+  padding: var(--space-6);
+}
+
+.u-mb-4 {
+  margin-bottom: var(--space-4);
+}
+.u-mb-6 {
+  margin-bottom: var(--space-6);
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.error-text {
+  color: var(--color-error);
+  font-size: 0.95em;
+  text-align: center;
+}
+
+/* Form controls should take full width in cards */
+.card--auth .v-text-field,
+.card--auth .v-textarea,
+.card--auth .v-select {
+  width: 100%;
+}

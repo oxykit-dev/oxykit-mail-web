@@ -1,0 +1,1044 @@
+{
+  "x-generator": "NSwag v14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.1.1",
+  "info": { "title": "OxyKit.Mail API", "version": "v1" },
+  "servers": [{ "url": "http://localhost:5026" }],
+  "paths": {
+    "/email/send": {
+      "post": {
+        "tags": ["Email"],
+        "summary": "Queues an email for sending or schedules it for future delivery.",
+        "description": "If 'scheduledFor' is provided in the request, the email will be queued and delivered at the specified UTC time.",
+        "operationId": "OxygenMailFeaturesEmailSendSendEndpoint",
+        "requestBody": {
+          "x-name": "SendEmailRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesEmailSendSendEmailRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": { "$ref": "#/components/schemas/FastEndpointsErrorResponse" }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "ApiKey": ["Admin", "Sender"] }, { "Bearer": ["Admin", "Sender"] }]
+      }
+    },
+    "/dashboard/top-recipients": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetTopRecipientsGetTopRecipientsEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesDashboardGetTopRecipientsTopRecipientResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/dashboard/most-recent-failures": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetMostRecentFailuresGetMostRecentFailuresEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesDashboardResponsesMessageLogResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin", "User"] }]
+      }
+    },
+    "/dashboard/latest-emails": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetLatestEmailsGetLatestEmailsEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesDashboardResponsesMessageLogResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin", "User"] }]
+      }
+    },
+    "/dashboard/email-stats": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetEmailStatsGetEmailStatsEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesDashboardGetEmailStatsEmailStatsResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin", "User"] }]
+      }
+    },
+    "/dashboard/emails-per-day": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetEmailsPerDayGetEmailsPerDayEndpoint",
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "schema": { "type": ["string", "null"], "format": "date-time" }
+          },
+          { "name": "timeZoneId", "in": "query", "schema": { "type": ["string", "null"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesDashboardGetEmailsPerDayEmailsPerDayResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin", "User"] }]
+      }
+    },
+    "/dashboard/delivery-success-rate": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetDeliverySuccessRateGetDeliverySuccessRateEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesDashboardGetDeliverySuccessRateDeliverySuccessRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/dead-lettered-emails": {
+      "get": {
+        "tags": ["Dashboard"],
+        "operationId": "OxygenMailFeaturesDashboardGetDeadLetteredEmailsGetDeadLetteredEmailsEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesDashboardGetDeadLetteredEmailsDeadLetteredEmailResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin", "User"] }]
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersUpdateUpdateEndpoint",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "x-name": "UpdateUserRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersUpdateUpdateUserRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthResponsesUserResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      },
+      "get": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersGetGetEndpoint",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthResponsesUserResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      },
+      "delete": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersDeleteDeleteEndpoint",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "guid" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/roles": {
+      "get": {
+        "tags": ["Roles"],
+        "operationId": "OxygenMailFeaturesAuthUsersRolesListAllRolesEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersRolesListAllRolesResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/users/roles/assign": {
+      "post": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersRolesAssignRoleEndpoint",
+        "requestBody": {
+          "x-name": "AssignRoleRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersRolesAssignRoleRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/users/roles/remove": {
+      "post": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersRolesRemoveRoleEndpoint",
+        "requestBody": {
+          "x-name": "RemoveRoleRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersRolesRemoveRoleRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/users/roles/list/{userId}": {
+      "get": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersRolesListRolesEndpoint",
+        "parameters": [
+          { "name": "userId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersRolesListRolesResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersListListEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesAuthResponsesUserResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      },
+      "post": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersCreateCreateEndpoint",
+        "requestBody": {
+          "x-name": "CreateUserRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersCreateCreateUserRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthResponsesUserResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/setup/create-admin": {
+      "post": {
+        "tags": ["Setup"],
+        "summary": "Creates the initial admin user if none exists.",
+        "description": "Fails if any admin user already exists.",
+        "operationId": "OxygenMailFeaturesAuthUsersCreateAdminCreateAdminEndpoint",
+        "requestBody": {
+          "x-name": "CreateAdminRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersCreateAdminCreateAdminRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthUsersCreateAdminCreateAdminResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/avatar": {
+      "post": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersAvatarUploadUploadEndpoint",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "application/json": { "schema": { "type": "string" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      },
+      "get": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersAvatarGetGetEndpoint",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "204": { "description": "No Content" } }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "operationId": "OxygenMailFeaturesAuthUsersAvatarClearClearEndpoint",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "OxygenMailFeaturesAuthRefreshTokenRefreshTokenEndpoint",
+        "requestBody": {
+          "x-name": "RefreshTokenRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthRefreshTokenRefreshTokenRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthRefreshTokenRefreshTokenResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/revoke": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "OxygenMailFeaturesAuthRefreshTokenRevokeRefreshTokenEndpoint",
+        "requestBody": {
+          "x-name": "RevokeRefreshTokenRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthRefreshTokenRevokeRefreshTokenRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": { "204": { "description": "No Content" } }
+      }
+    },
+    "/setup/needs-admin": {
+      "get": {
+        "tags": ["Setup"],
+        "summary": "Checks if an admin user exists.",
+        "description": "Returns needsAdmin=true if no admin user exists, otherwise false.",
+        "operationId": "OxygenMailFeaturesAuthNeedsAdminNeedsAdminEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthNeedsAdminNeedsAdminResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["Auth"],
+        "operationId": "OxygenMailFeaturesAuthMeMeEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OxygenMailFeaturesAuthMeMeResponse" }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin", "User", "Sender"] }]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "OxygenMailFeaturesAuthLoginLoginEndpoint",
+        "requestBody": {
+          "x-name": "LoginRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OxygenMailFeaturesAuthLoginLoginRequest" }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthLoginLoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apikeys/{id}/regenerate": {
+      "post": {
+        "tags": ["Apikeys"],
+        "operationId": "OxygenMailFeaturesAuthApiKeysRegenerateRegenerateEndpoint",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "guid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthApiKeysCreateCreateResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/apikeys": {
+      "get": {
+        "tags": ["Apikeys"],
+        "operationId": "OxygenMailFeaturesAuthApiKeysListListEndpoint",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OxygenMailFeaturesAuthApiKeysCommonApiKeyResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": [] }]
+      },
+      "post": {
+        "tags": ["Apikeys"],
+        "operationId": "OxygenMailFeaturesAuthApiKeysCreateCreateEndpoint",
+        "requestBody": {
+          "x-name": "CreateRequest",
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OxygenMailFeaturesAuthApiKeysCreateCreateRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthApiKeysCreateCreateResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": ["Admin"] }]
+      }
+    },
+    "/apikeys/{id}": {
+      "get": {
+        "tags": ["Apikeys"],
+        "operationId": "OxygenMailFeaturesAuthApiKeysGetGetEndpoint",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "guid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OxygenMailFeaturesAuthApiKeysCommonApiKeyResponse"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": [] }]
+      },
+      "delete": {
+        "tags": ["Apikeys"],
+        "operationId": "OxygenMailFeaturesAuthApiKeysDeleteDeleteEndpoint",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "guid" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Bearer": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OxygenMailFeaturesEmailSendSendEmailRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["to", "subject", "body"],
+        "properties": {
+          "to": {
+            "type": "string",
+            "format": "email",
+            "minLength": 1,
+            "pattern": "^[^@]+@[^@]+$",
+            "nullable": false
+          },
+          "cc": { "type": "string" },
+          "bcc": { "type": "string" },
+          "subject": { "type": "string", "minLength": 1, "nullable": false },
+          "body": { "type": "string", "minLength": 1, "nullable": false },
+          "isHtml": { "type": "boolean" },
+          "attachments": {
+            "type": ["array", "null"],
+            "items": { "$ref": "#/components/schemas/OxygenMailFeaturesEmailSendAttachmentRequest" }
+          },
+          "scheduledFor": { "type": ["string", "null"], "format": "date-time" }
+        }
+      },
+      "OxygenMailFeaturesEmailSendAttachmentRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fileName": { "type": "string" },
+          "content": { "type": "string", "contentEncoding": "base64" },
+          "contentType": { "type": "string" }
+        }
+      },
+      "FastEndpointsErrorResponse": {
+        "type": "object",
+        "description": "the dto used to send an error response to the client",
+        "additionalProperties": false,
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "description": "the http status code sent to the client. default is 400.",
+            "format": "int32",
+            "default": 400
+          },
+          "message": {
+            "type": "string",
+            "description": "the message for the error response",
+            "default": "One or more errors occurred!"
+          },
+          "errors": {
+            "type": "object",
+            "description": "the collection of errors for the current context",
+            "additionalProperties": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "OxygenMailFeaturesDashboardGetTopRecipientsTopRecipientResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "recipient": { "type": "string" },
+          "emailsReceived": { "type": "integer", "format": "int32" }
+        }
+      },
+      "OxygenMailFeaturesDashboardResponsesMessageLogResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "messageId": { "type": "integer", "format": "int32" },
+          "subject": { "type": "string" },
+          "to": { "type": "string" },
+          "from": { "type": "string" },
+          "errorMessage": { "type": ["string", "null"] },
+          "status": { "type": "string" },
+          "loggedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "OxygenMailFeaturesDashboardGetEmailStatsEmailStatsResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "totalEmailsSent": { "type": "integer", "format": "int32" },
+          "totalEmailsFailed": { "type": "integer", "format": "int32" },
+          "totalEmailsQueued": { "type": "integer", "format": "int32" },
+          "lastEmailSentAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "OxygenMailFeaturesDashboardGetEmailsPerDayEmailsPerDayResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": { "type": "string", "format": "date-time" },
+          "emailsSent": { "type": "integer", "format": "int32" }
+        }
+      },
+      "OxygenMailFeaturesDashboardGetEmailsPerDayEmailsPerDayRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OxygenMailFeaturesDashboardGetDeliverySuccessRateDeliverySuccessRateResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "successRate": { "type": "number", "format": "double" },
+          "totalSent": { "type": "integer", "format": "int32" },
+          "totalFailed": { "type": "integer", "format": "int32" }
+        }
+      },
+      "OxygenMailFeaturesDashboardGetDeadLetteredEmailsDeadLetteredEmailResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "subject": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "deadLetterReason": { "type": "string" }
+        }
+      },
+      "OxygenMailFeaturesAuthResponsesUserResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "userName": { "type": "string" },
+          "email": { "type": "string" },
+          "roles": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "OxygenMailFeaturesAuthUsersUpdateUpdateUserRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userName": { "type": ["string", "null"] },
+          "email": { "type": ["string", "null"] },
+          "password": { "type": ["string", "null"] },
+          "confirmPassword": { "type": ["string", "null"] }
+        }
+      },
+      "OxygenMailFeaturesAuthUsersRolesListAllRolesResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "roles": { "type": "array", "items": { "type": "string" } } }
+      },
+      "OxygenMailFeaturesAuthUsersRolesAssignRoleRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "userId": { "type": "string" }, "role": { "type": "string" } }
+      },
+      "OxygenMailFeaturesAuthUsersRolesRemoveRoleRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "userId": { "type": "string" }, "role": { "type": "string" } }
+      },
+      "OxygenMailFeaturesAuthUsersRolesListRolesResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "roles": { "type": "array", "items": { "type": "string" } } }
+      },
+      "OxygenMailFeaturesAuthUsersRolesListRolesRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OxygenMailFeaturesAuthUsersGetGetRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OxygenMailFeaturesAuthUsersCreateCreateUserRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userName": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" },
+          "confirmPassword": { "type": "string" }
+        }
+      },
+      "OxygenMailFeaturesAuthUsersCreateAdminCreateAdminResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "success": { "type": "boolean" }, "error": { "type": ["string", "null"] } }
+      },
+      "OxygenMailFeaturesAuthUsersCreateAdminCreateAdminRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userName": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "FastEndpointsEmptyRequest": {
+        "type": "object",
+        "description": "a request dto that doesn't have any properties",
+        "additionalProperties": false
+      },
+      "OxygenMailFeaturesAuthRefreshTokenRefreshTokenResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "token": { "type": "string" }, "refreshToken": { "type": "string" } }
+      },
+      "OxygenMailFeaturesAuthRefreshTokenRefreshTokenRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "refreshToken": { "type": "string" }, "deviceId": { "type": "string" } }
+      },
+      "OxygenMailFeaturesAuthRefreshTokenRevokeRefreshTokenRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "refreshToken": { "type": "string" }, "deviceId": { "type": "string" } }
+      },
+      "OxygenMailFeaturesAuthNeedsAdminNeedsAdminResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": { "needsAdmin": { "type": "boolean" } }
+      },
+      "OxygenMailFeaturesAuthMeMeResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userName": { "type": ["string", "null"] },
+          "roles": { "type": "array", "items": { "type": "string" } },
+          "permissions": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "OxygenMailFeaturesAuthLoginLoginResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "token": { "type": "string" },
+          "refreshToken": { "type": "string" },
+          "userName": { "type": "string" }
+        }
+      },
+      "OxygenMailFeaturesAuthLoginLoginRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "identifier": { "type": "string" },
+          "password": { "type": "string" },
+          "deviceId": { "type": "string" }
+        }
+      },
+      "OxygenMailFeaturesAuthApiKeysCreateCreateResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "format": "guid" },
+          "userId": { "type": "string" },
+          "label": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "lastUsedAt": { "type": ["string", "null"], "format": "date-time" },
+          "plainApiKey": { "type": "string" }
+        }
+      },
+      "OxygenMailFeaturesAuthApiKeysCommonApiKeyResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "format": "guid" },
+          "label": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "lastUsedAt": { "type": ["string", "null"], "format": "date-time" }
+        }
+      },
+      "OxygenMailFeaturesAuthApiKeysCreateCreateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": { "type": ["string", "null"] },
+          "label": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": { "type": "apiKey", "name": "X-Api-Key", "in": "header" },
+      "Bearer": { "type": "http", "scheme": "Bearer", "bearerFormat": "JWT" }
+    }
+  }
+}

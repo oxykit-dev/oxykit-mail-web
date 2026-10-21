@@ -1,0 +1,12 @@
+---
+description: oxykit-mail-web agent defaults — prefer AGENTS.md
+alwaysApply: true
+---
+
+# oxykit-mail-web agent defaults
+
+- Start from `AGENTS.md` + `src/features/README.md` + `docs/SHARED.md`.
+- Feature modules under `src/features/*`; shared UI/async via `@/shared`; Axios via `@/api/client`.
+- API base: `{VITE_BACKEND_URL}/api/v1` → OxyKit.Mail on port 5026. No Vite proxy.
+- Private pre-release — keep docs lean; do not revive migration / analysis writeups.
+- Backend contract changes → `../OxyKit.Mail`, then update feature `api/` + OpenAPI snapshot here.

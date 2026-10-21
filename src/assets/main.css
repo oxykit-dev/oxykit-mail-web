@@ -1,0 +1,21 @@
+/* Sensible Vuetify-friendly additions */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Roboto, Arial, sans-serif;
+  background: var(--v-background-base);
+  color: var(--v-theme-on-background);
+}
+
+#app {
+  padding: 24px;
+}
+
+button:focus {
+  outline: none;
+}
