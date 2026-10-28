@@ -1,6 +1,6 @@
 # Shared UI / async helpers
 
-**Status:** private pre-release. Prefer `src/shared/` source over this file when unsure.
+Prefer `src/shared/` source over this file when unsure.
 
 Import from `@/shared`.
 

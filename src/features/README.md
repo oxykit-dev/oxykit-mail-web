@@ -1,6 +1,6 @@
 # Features
 
-Vertical slices aligned with OxyKit.Mail. **Private pre-release** — layout is current, not a migration backlog.
+Vertical slices aligned with OxyKit.Mail. Layout is current — not a migration backlog.
 
 ```text
 features/<name>/
